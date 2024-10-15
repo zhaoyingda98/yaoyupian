@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>姚校原图</title>
+    <link rel="stylesheet" href="style.css"> <!-- 引用CSS文件 -->
+</head>
+<body>
+    <h1>姚校原图</h1>
+    <!-- 居中的按钮 -->
+    <div id="button-container">
+        <button id="prev-page" class="navigation-button">上一页</button>
+        <button id="next-page" class="navigation-button">下一页</button>
+    </div>
+
+    <div id="image-container">
+        <img id="dictionary-image" src="" alt="字典图片" />
+    </div>
+    <div id="button-container">
+        <a href="index.html" class="button-link">返回索引</a>
+    </div>
+    <script>
+        // 获取URL参数
+        const urlParams = new URLSearchParams(window.location.search);
+        let pageNumber = parseInt(urlParams.get('page'), 10);  // 当前页码，转换为整数
+
+        // 根据页码显示对应的图片
+        const image = document.getElementById('dictionary-image');
+        function updateImage() {
+            image.src = `images/YYP${pageNumber}.png`;
+        }
+        updateImage();
+
+        // 处理上一页点击事件
+        document.getElementById('prev-page').addEventListener('click', function() {
+            if (pageNumber > 1) {  // 假设没有小于1的页码
+                pageNumber--;
+                updateImage();
+                window.history.pushState(null, '', `image.html?page=${pageNumber}`);
+            }
+        });
+
+        // 处理下一页点击事件
+        document.getElementById('next-page').addEventListener('click', function() {
+            pageNumber++;
+            updateImage();
+            window.history.pushState(null, '', `image.html?page=${pageNumber}`);
+        });
+    </script>
+</body>
+</html>
